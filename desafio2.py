@@ -28,7 +28,7 @@ def deposito(valor, saldo, extrato, /):
 
     return saldo, extrato
 
-def sacar(*, valor, numero_saques, limite, extrato, saldo):
+def sacar(*, valor, numero_saques, limite, extrato, saldo, LIMITE_SAQUES):
 
     # Limites de saque
     if numero_saques >= LIMITE_SAQUES:
@@ -44,6 +44,8 @@ def sacar(*, valor, numero_saques, limite, extrato, saldo):
             saldo -= valor
             numero_saques += 1
             extrato += f" - [-] Saque: R${valor:.2f}\n" 
+            print("[+] Saque realizado com sucesso!")
+
         else:
             print("[!] Saque falhou! Valor limite atingido")
     
@@ -144,9 +146,10 @@ while True:
     elif opcao == "1":
         valor = float(input("Informe o valor do saque: R$"))
         saldo, numero_saques, extrato= sacar(
+            LIMITE_SAQUES = LIMITE_SAQUES,
             valor = valor,
             numero_saques = numero_saques, 
-            limite = LIMITE_SAQUES,
+            limite = limite,
             extrato = extrato,
             saldo = saldo
         )
